@@ -48,7 +48,6 @@ def select_persona_from_db(
         container = get_persona_database_container()
         if item_id:
             item = container.read_item(item=item_id, partition_key=item_id)
-            print(item)
             return {
                 item["section"]: item["persona"]
             }
