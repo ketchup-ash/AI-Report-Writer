@@ -63,11 +63,9 @@ def generate_content_from_doc(
                     "content": [list_item]
                 })
 
-    full_json = [
-        {
-            "type": "doc",
-            "content": content
-        }
-    ]
+    full_json = {
+        "type": "doc",
+        "content": content
+    }
 
     return full_json
