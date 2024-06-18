@@ -41,14 +41,23 @@ def update_persona_db(
         logging.error(str(e))
         raise e
 
-def select_persona_from_db():
+def select_persona_from_db(
+        item_id: str = None
+):
     try:
         container = get_persona_database_container()
+        if item_id:
+            item = container.read_item(item=item_id, partition_key=item_id)
+            print(item)
+            return {
+                item["section"]: item["persona"]
+            }
         query = "SELECT * FROM c"
         items = list(container.query_items(
             query=query,
             enable_cross_partition_query=True
         ))
+            
 
         modified_items = {}
         for i in items:

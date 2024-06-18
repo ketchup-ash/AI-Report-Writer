@@ -11,10 +11,9 @@ app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)
 def download_file(req: func.HttpRequest) -> func.HttpResponse:
     try:
         req_body = req.get_json()
-        file_content = req_body.get('file_content', [])
 
         response = download_worker(
-            file_content=file_content
+            file_content=req_body
         )
 
         return func.HttpResponse(
@@ -31,7 +30,13 @@ def download_file(req: func.HttpRequest) -> func.HttpResponse:
 @app.route(route="get_sections", methods=["GET"])
 def get_sections(req: func.HttpRequest) -> func.HttpResponse:
     try:
-        items = select_persona_from_db()
+        try:
+            req_body = req.get_json()
+            item_id = req_body.get("item_id")
+
+            items = select_persona_from_db(item_id=item_id)
+        except:
+            items = select_persona_from_db()
 
         return func.HttpResponse(
             body=json.dumps(items),
@@ -52,7 +57,7 @@ def update_sections(req: func.HttpRequest) -> func.HttpResponse:
         update_persona_db(req_body)
 
         return func.HttpResponse(
-            body="Data successfully updated or inserted.",
+            body=json.dumps(req_body),
             status_code=200
         )
     except Exception as e:
