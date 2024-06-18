@@ -31,9 +31,7 @@ def download_file(req: func.HttpRequest) -> func.HttpResponse:
 def get_sections(req: func.HttpRequest) -> func.HttpResponse:
     try:
         try:
-            req_body = req.get_json()
-            item_id = req_body.get("item_id")
-
+            item_id = req.params.get('item_id')
             items = select_persona_from_db(item_id=item_id)
         except:
             items = select_persona_from_db()
