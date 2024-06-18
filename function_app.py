@@ -44,7 +44,7 @@ def get_sections(req: func.HttpRequest) -> func.HttpResponse:
             status_code=400
         )
 
-@app.route(route="update_sections", auth_level=func.AuthLevel.ANONYMOUS)
+@app.route(route="update_sections", methods=["POST"])
 def update_sections(req: func.HttpRequest) -> func.HttpResponse:
     try:
         req_body = req.get_json()
