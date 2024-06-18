@@ -56,7 +56,6 @@ def select_persona_from_db(
             query=query,
             enable_cross_partition_query=True
         ))
-            
 
         modified_items = {}
         for i in items:
