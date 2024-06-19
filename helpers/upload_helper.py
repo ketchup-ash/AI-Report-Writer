@@ -23,30 +23,45 @@ def generate_content_from_doc(
                 ]
             })
         elif style.startswith("Normal"):
-            content.append({
-                "type": "paragraph",
-                "content": [
-                    {
-                        "type": "text",
-                        "text": para.text
-                    }
-                ]
-            })
+            if para.text == "":
+                content.append({
+                    "type": "paragraph"
+                })
+            else:
+                content.append({
+                    "type": "paragraph",
+                    "content": [
+                        {
+                            "type": "text",
+                            "text": para.text
+                        }
+                    ]
+                })
         elif style.startswith("List"):
-            list_item = {
-                "type": "listItem",
-                "content": [
-                    {
-                        "type": "paragraph",
-                        "content": [
-                            {
-                                "type": "text",
-                                "text": para.text
-                            }
-                        ]
-                    }
-                ]
-            }
+            if para.text == "":
+                list_item = {
+                    "type": "listItem",
+                    "content": [
+                        {
+                            "type": "paragraph"
+                        }
+                    ]
+                }
+            else:
+                list_item = {
+                    "type": "listItem",
+                    "content": [
+                        {
+                            "type": "paragraph",
+                            "content": [
+                                {
+                                    "type": "text",
+                                    "text": para.text
+                                }
+                            ]
+                        }
+                    ]
+                }
             if content[-1].get("type") == "bulletList":
                 content[-1]["content"].append(list_item)
             else:
