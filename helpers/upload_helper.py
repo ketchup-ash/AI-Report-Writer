@@ -23,20 +23,15 @@ def generate_content_from_doc(
                 ]
             })
         elif style.startswith("Normal"):
-            if para.text == "":
-                content.append({
-                    "type": "paragraph"
-                })
-            else:
-                content.append({
-                    "type": "paragraph",
-                    "content": [
-                        {
-                            "type": "text",
-                            "text": para.text
-                        }
-                    ]
-                })
+            content.append({
+                "type": "paragraph",
+                "content": [
+                    {
+                        "type": "text",
+                        "text": para.text
+                    }
+                ]
+            })
         elif style.startswith("List"):
             list_item = {
                 "type": "listItem",
