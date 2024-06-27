@@ -27,7 +27,7 @@ def download_file(req: func.HttpRequest) -> func.HttpResponse:
             status_code=400
         )
 
-@app.route(route="get_sections", methods=["GET"])
+@app.route(route="get_sections", methods=["GET"], auth_level=func.AuthLevel.ANONYMOUS)
 def get_sections(req: func.HttpRequest) -> func.HttpResponse:
     try:
         try:
@@ -47,7 +47,7 @@ def get_sections(req: func.HttpRequest) -> func.HttpResponse:
             status_code=400
         )
 
-@app.route(route="update_sections", methods=["POST"])
+@app.route(route="update_sections", methods=["POST"], auth_level=func.AuthLevel.ANONYMOUS)
 def update_sections(req: func.HttpRequest) -> func.HttpResponse:
     try:
         req_body = req.get_json()
@@ -65,8 +65,7 @@ def update_sections(req: func.HttpRequest) -> func.HttpResponse:
             status_code=400
         )
 
-
-@app.route(route="upload_file", methods=["POST"])
+@app.route(route="upload_file", methods=["POST"], auth_level=func.AuthLevel.ANONYMOUS)
 def upload_file(req: func.HttpRequest) -> func.HttpResponse:
     try:
         req_data = req.get_json()
